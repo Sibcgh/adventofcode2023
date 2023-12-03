@@ -21,7 +21,6 @@ def question_one():
         sum_vals += val
     
     print(sum_vals)
-    file1.close()
 
 
 def question_two():
