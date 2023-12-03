@@ -30,7 +30,7 @@ def question_one():
   with open("day3.txt") as f:
       lines = f.read().split("\n")
 
-  grid = [[c for c in line] for line in lines]
+  grid = [[char for char in line] for line in lines]
   ROWS_LEN = len(grid)
   COLS_LEN = len(grid[0])
 
@@ -59,7 +59,7 @@ def question_two():
   with open("day3.txt") as f:
       lines = f.read().split("\n")
 
-  grid = [[c for c in line] for line in lines]
+  grid = [[char for char in line] for line in lines]
   ROWS_LEN = len(grid)
   COLS_LEN = len(grid[0])
 
