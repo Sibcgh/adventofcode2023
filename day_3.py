@@ -21,7 +21,7 @@ def search(graph, R, C, start_x, start_y):
 
   # searching in each direction for each coordinate pair
   for x, y in direction:
-    if 0 <= start_x+x < R and 0 <= start_y+y < C and not graph[start_x+x][start_y+y].isdigit()  and graph[start_x+x][start_y+y] != '.':
+    if 0 <= start_x+x < R and 0 <= start_y+y < C and not graph[start_x+x][start_y+y].isdigit() and graph[start_x+x][start_y+y] != '.':
       return True
   
   return False

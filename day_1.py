@@ -60,6 +60,3 @@ def question_two():
 
 question_one()
 question_two()
-
-
-
