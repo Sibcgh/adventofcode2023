@@ -55,8 +55,6 @@ def question_one():
       lines = f.read().split("\n")
 
   res = 0
-  line_count = 0
-
 
   for line in lines:
     line = line.strip()
