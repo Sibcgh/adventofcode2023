@@ -16,9 +16,7 @@ def question_one():
   for i in range(len(times)):
     count = 0
     for j in range(1,times[i]):
-      speed = times[i] - j 
-      new_dist = j * speed
-      if new_dist > distances[i]:
+      if (times[i] - j ) * j > distances[i]:
         count +=1
     nums.append(count)
 
@@ -44,9 +42,7 @@ def question_two():
 
   count = 0
   for j in range(1,times_):
-    speed = times_ - j 
-    new_dist = j * speed
-    if new_dist > distances_:
+    if (times_ - j ) * j  > distances_:
       count +=1
 
 
