@@ -65,7 +65,9 @@ def question_two():
         step_count = 0
         first_z = None
 
+        # break once we get to a cycle and then add that cycle to cycles list
         while True:
+            # keep iterating until we find an end node or we reset our step count
             while step_count == 0 or not current.endswith("Z"):
               next_dir = instructions.pop(0)
               instructions.append(next_dir)
@@ -93,5 +95,5 @@ def question_two():
     res = math.lcm(*nums)
     print(res)
         
-# question_one()
+question_one()
 question_two()
