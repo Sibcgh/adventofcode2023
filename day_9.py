@@ -5,83 +5,39 @@
 
 # extend this to do it for every line 
 # test = "0 3 6 9 12 15"
-def calculate_next(input_text):
-  vals = list(int(s) for s in input_text.strip().split())
+def calculate_next(vals):
+  # base case
+  if all(x == 0 for x in vals):
+    return 0
+
+  #  zip allows you to pairwise quickly
+  diffs = [y-x for x,y in zip(vals, vals[1:])]
+  last_elem = calculate_next(diffs)
+  return last_elem + vals[-1]
 
 
-  diffs = [vals]
-
-  curr_arr = vals
-
-  while True:
-    curr_diffs = []
-
-    for i in range(1, len(curr_arr)):
-      curr_diffs.append(curr_arr[i]- curr_arr[i-1])
-    diffs.append(curr_diffs)
-    curr_arr = curr_diffs
-
-
-    if sum(curr_arr) == 0:
-      break
-
-
-  # iterate backwards, pop off the last element and set it to curr num
-
-
-  last_elem = 0
-
-  while diffs:
-    curr_arr = diffs[-1]
-    curr_num = curr_arr[-1]
-    last_elem = last_elem + curr_num
-    diffs.pop()
-
-  return(last_elem)
-
-def calculate_next_reverse(input_text):
-  vals = list(int(s) for s in input_text.strip().split())
+def calculate_next_reverse(vals):
   vals = vals[::-1]
+  # base case
+  if all(x == 0 for x in vals):
+    return 0
 
-  diffs = [vals]
-
-  curr_arr = vals
-
-  while True:
-    curr_diffs = []
-
-    for i in range(1, len(curr_arr)):
-      curr_diffs.append(curr_arr[i]- curr_arr[i-1])
-    diffs.append(curr_diffs)
-    curr_arr = curr_diffs
+  diffs = [y-x for x,y in zip(vals, vals[1:])]
+  last_elem = calculate_next(diffs)
+  return last_elem + vals[-1]
 
 
-    if sum(curr_arr) == 0:
-      break
-
-
-  # iterate backwards, pop off the last element and set it to curr num
-
-
-  last_elem = 0
-
-  while diffs:
-    curr_arr = diffs[-1]
-    curr_num = curr_arr[-1]
-    last_elem = last_elem + curr_num
-    diffs.pop()
-
-  return(last_elem)
+l = [[int(i) for i in s.split()] for s in open('day9.txt').read().split('\n') if s.strip()]
 
 res = 0
 res2 = 0
 
-with open("day9.txt") as f:
-  lines = f.read().split('\n')
-
-
-for line in lines:
+for line in l:
 
   res += calculate_next(line)
   res2+= calculate_next_reverse(line)
 print(res, res2)
+
+
+
+
