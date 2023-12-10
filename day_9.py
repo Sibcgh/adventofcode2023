@@ -25,7 +25,3 @@ for line in l:
   res += calculate_next(line)
   res2+= calculate_next(line[::-1])
 print(res, res2)
-
-
-
-
