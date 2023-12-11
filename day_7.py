@@ -20,8 +20,7 @@ from collections import Counter
 '''
 
 class Hand_j:
-    def __init__(self, hand, bet):
-        self. values_q2 = {
+    values_q2 = {
             # "2": 2,
             # "3": 3,
             # "4": 4,
@@ -37,6 +36,7 @@ class Hand_j:
             "A": "E",
         }
 
+    def __init__(self, hand, bet):
         self.hand = hand
         self.score = self.max_strength(self.hand)
         self.bet = int(bet)
@@ -83,14 +83,13 @@ class Hand_j:
 
     def max_strength(self, hand):
         # make it return a tuple of the get_strength and then the array the original array
-        return (self.get_strength(hand), [self.values_q2.get(card, card) for card in hand])
+        return (self.get_strength(hand), [Hand_j.values_q2.get(card, card) for card in hand])
 
 # sort all the hands by rank. then enumerate over all sorted hands and append rank
 # create a class for hand object for each hand, containing the hand score, and bet placed
 
 class Hand:
-    def __init__(self, hand, bet):
-        self. values_q1 = {
+    values_q1 = {
             # "2": 2,
             # "3": 3,
             # "4": 4,
@@ -106,6 +105,7 @@ class Hand:
             "A": "E",
         }
 
+    def __init__(self, hand, bet):
         cards_counter = Counter([card for card in hand])
         card_types = list(sorted(cards_counter.values(), reverse=True))
         self.hand = hand
@@ -128,7 +128,7 @@ class Hand:
 
         self.bet = int(bet)
         # score should be determined based on the strengh + the sorting of the values in the cards
-        self.score = (self.strength, [(self.values_q1.get(card, card)) for card in hand])
+        self.score = (self.strength, [(Hand.values_q1.get(card, card)) for card in hand])
 
 
 def question_one():
