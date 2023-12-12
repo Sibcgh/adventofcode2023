@@ -1,8 +1,7 @@
-#  lets try a naive brute force method initally
-import functools
+# #  lets try a naive brute force method initally
+from functools import cache
 
 # backtracking function to generate all possible options
-@functools.lru_cache(maxsize=None)
 def find_patterns(pattern):
   def backtrack(index, path):
     if index == len(pattern):
@@ -27,59 +26,42 @@ def find_patterns(pattern):
   return combinations
 
 
-def question_one():
-  with open("day12.txt") as f:
-    lines = f.read().split('\n')
+@cache
+def count(curr_obj, sequence, flag=False):
+  if curr_obj == "":
+    return 1 if sum(sequence) == 0 else 0
 
-    res = 0
-
-    for line in lines:
-      line = line.split()
-      pattern = line[0]
-      sequence = [int(num) for num in line[1].split(",")]
-
-      combinations = find_patterns(pattern)
-
-      for combo in combinations:
-          seq = [len(seq) for seq in combo.split(".") if seq]
-          if seq == sequence:
-            res += 1
-
-  print(res)
-
-'''
-  ???.### 1,1,3
- 
-  ???.###????.###????.###????.###????.###
- '''
+  if sum(sequence) == 0:
+    return 0 if "#" in curr_obj else 1
+  
+  if curr_obj[0] == "#":
+    if flag and sequence[0] == 0:
+      return 0
+    return count(curr_obj[1:], (sequence[0] - 1, *sequence[1:]), True)
+  
+  if curr_obj[0] == ".":
+    if flag and sequence[0] > 0:
+      return 0
+    return count(curr_obj[1:], sequence[1:] if sequence[0] == 0 else sequence, False)
+  
+  if flag:
+    if sequence[0] == 0:
+      return count(curr_obj[1:], sequence[1:], False)
+    return count(curr_obj[1:], (sequence[0] - 1, *sequence[1:]), True)
+  
+  return count(curr_obj[1:], sequence, False) + count(curr_obj[1:], (sequence[0] - 1, *sequence[1:]), True)
 
 def question_two():
-  with open("day12.txt") as f:
-    lines = f.read().split('\n')
+  res = 0
 
-    res = 0
-
-    for line in lines:
-      line = line.split()
-      pattern = line[0]
-
-      curr = ""
-      for j in range(5):
-          curr+= "?"
-          curr += pattern
-      sequence = [int(num) for num in line[1].split(",")]
-      sequence = sequence * 5
-
-      print(curr[1:], sequence)
-      combinations = find_patterns(curr[1:])
-
-      for combo in combinations:
-          seq = [len(seq) for seq in combo.split(".") if seq]
-          if seq == sequence:
-            res += 1
+  for line in open("day12.txt"):
+      pattern, sequence = line.split()
+      sequence = tuple(map(int, sequence.split(",")))
+      pattern = "?".join([pattern] * 5)
+      sequence *= 5
+      res += count(pattern, sequence)
 
   print(res)
 
-
-# question_one()
+# # question_one()
 question_two()
