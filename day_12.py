@@ -1,5 +1,10 @@
-# #  lets try a naive brute force method initally
+#  lets try a naive brute force method initally
 from functools import cache
+
+'''
+8193
+45322533163795
+'''
 
 # backtracking function to generate all possible options
 def find_patterns(pattern):
@@ -25,7 +30,7 @@ def find_patterns(pattern):
   backtrack(0, [])
   return combinations
 
-
+# wallahi shout out to cashing
 @cache
 def count(curr_obj, sequence, flag=False):
   if curr_obj == "":
@@ -51,6 +56,31 @@ def count(curr_obj, sequence, flag=False):
   
   return count(curr_obj[1:], sequence, False) + count(curr_obj[1:], (sequence[0] - 1, *sequence[1:]), True)
 
+# def question_one_brute_force():
+#   res = 0
+
+#   for line in open("day12.txt"):
+#       pattern, sequence = line.split()
+#       # sequence = tuple(map(int, sequence.split(",")))
+#       sequence = [int(num) for num in sequence.split(",")]
+#       combinations = find_patterns(pattern)
+
+#       for combo in combinations:
+#         seq = [len(seq) for seq in combo.split(".") if seq]
+#         if seq == sequence:
+#             res+=1
+
+#   print(res)
+
+def question_one():
+  res = 0
+
+  for line in open("day12.txt"):
+      pattern, sequence = line.split()
+      sequence = tuple(map(int, sequence.split(",")))
+      res += count(pattern, sequence)
+  print(res)
+
 def question_two():
   res = 0
 
@@ -63,5 +93,5 @@ def question_two():
 
   print(res)
 
-# # question_one()
+question_one()
 question_two()
