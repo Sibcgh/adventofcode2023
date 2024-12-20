@@ -17,7 +17,7 @@ def find_patterns(pattern):
 
     curr_char = pattern[index]
     # do backtracking options
-    if  curr_char == "?":
+    if curr_char == "?":
       for char in "#.":
         path.append(char)
         backtrack(index + 1, path)
